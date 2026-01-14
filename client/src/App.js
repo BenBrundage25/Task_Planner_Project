@@ -150,7 +150,7 @@ function App() {
 
   return (
     <div style={{ padding: "50px", fontFamily: "sans-serif", maxWidth: "800px", margin: "0 auto" }}>
-      <h1 style={{ textAlign: "center" }}>PERN Planner</h1>
+      <h1 style={{ textAlign: "center" }}>Task Assignment Planner!</h1>
 
       {/* LOGIN SECTION */}
       <div style={{ background: "#f4f4f4", padding: "20px", borderRadius: "8px", marginBottom: "30px" }}>
