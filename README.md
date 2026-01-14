@@ -17,7 +17,7 @@ Before you begin, make sure you have the following installed on your computer:
 Open your terminal and download the code:
 ```bash
 git clone <YOUR_REPOSITORY_URL_HERE>
-cd Super-Cool-Planner
+cd Task_Planner_Project
 ```
 
 ### 2. Install Dependencies
@@ -52,7 +52,7 @@ This project uses **PostgreSQL** inside a Docker container. We use port **5433**
 Run this command in your terminal to download and start Postgres:
 
 ```bash
-docker run --name pern_planner_db -e POSTGRES_PASSWORD=password123 -p 5433:5432 -d postgres
+docker run --name pern_planner_db -e POSTGRES_PASSWORD=password123 -p 5433:5432 -v pgdata:/var/lib/postgresql/data -d postgres
 ```
 
 ### 2. Create the Database & Tables
