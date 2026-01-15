@@ -65,7 +65,7 @@ function App() {
         priority
       });
 
-      //Find the ID whether it's called 'id' or 'task_id', I got lost in the sauce and thought I worte id in one spot so just in case
+      //Find the ID whether it's called 'id' or 'task_id'
       const newTaskId = response.data.task_id || response.data.id;
 
       //Assign User if we have a user and a valid Task ID
@@ -215,7 +215,7 @@ function App() {
                   <option value="low">Low</option>
                 </select>
 
-                {/* --- NEW: User Assignment Dropdown --- */}
+                {/* User Assignment Dropdown */}
                 <select 
                   value={editAssignUserId} 
                   onChange={e => setEditAssignUserId(e.target.value)}

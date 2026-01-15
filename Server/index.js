@@ -8,7 +8,7 @@ app.use(express.json());
 
 //TASKS SECTION START
 
-//Retrieves table and sorts it into the database based on priority
+//Retrieves table for tasks and sorts them based on priority
 app.get("/tasks", async (req, res) => {
   try {
     const allTasks = await pool.query(`
@@ -30,10 +30,11 @@ app.get("/tasks", async (req, res) => {
   }
 });
 
+//Create a task
 app.post("/tasks", async (req, res) => {
   try {
     const { description, priority } = req.body;
-    // Check if the first argument here is actually a string
+    //Wait until the new task is retrieved before continuing
     const newTask = await pool.query("INSERT INTO tasks (description, priority) VALUES($1, $2) RETURNING *", [description, priority]);
     res.json(newTask.rows[0]);
   } catch (err) {
@@ -57,7 +58,7 @@ app.put("/tasks/:id", async (req, res) => {
   try {
     const {id} = req.params;
     const {description, priority} = req.body;
-
+    //Update the descirption/priority
     await pool.query("UPDATE tasks SET description = $1, priority = $2 WHERE task_id = $3", [description, priority, id]);
     res.json("Task was updated!");
   }catch (err) {
@@ -72,8 +73,8 @@ app.post("/login", async (req, res) => {
     const {username} = req.body;
     //See if the user exists already
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-
-    if (user.rows.length >0) {
+    //If the user exists, sends back the user's data
+    if (user.rows.length > 0) {
       res.json(user.rows[0]);
     }else {
       const newUser = await pool.query("INSERT INTO users (username) VALUES($1) RETURNING *", [username]);
@@ -94,24 +95,6 @@ app.get("/users", async (req,res)=> {
     const allUsers = await pool.query("SELECT * FROM users ORDER BY username ASC");
     res.json(allUsers.rows);
   }catch(err) {
-    console.error(err.message);
-  }
-});
-
-//Create a new user if one with the username DNE
-app.post ("/users", async (req, res)=> {
-  try {
-    const {username} = req.body;
-    //Checks for user
-    const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-
-    if (user.rows.length > 0) {
-      return res.json(user.rows[0]);
-    }
-    //Creates new user
-    const newUser = await pool.query("INSERT INTO users (username) VALUES ($1) RETURNING *", [username]);
-    res.json(newUser.rows[0]);
-  }catch (err) {
     console.error(err.message);
   }
 });
